@@ -1,0 +1,7 @@
+{
+    "appsearch":{
+        "base_endpoint":"fe37dba25847452c9a44727c1ef11d22.ent-search.us-central1.gcp.cloud.es.io/api/as/v1",
+        "api_key":"private-8s1fkiyd1hcxeqst1ys79nj3",
+        "engine_name":"special-topics-engine"
+    }
+}

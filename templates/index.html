@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <title>Super League Search</title>
+</head>
+
+<body>
+    <div style="background-color: #374151; padding: 1rem; text-align: center;">
+        <h2 style="font-size: 3rem; font-weight: lighter; color: white; margin: 0;">Football Search</h2>
+    </div>
+    <div style="display: flex; justify-content: center; padding: 1rem;">
+        <form action="/search" method="POST">
+            <input type="text" placeholder="Search here..." name="search"
+                style="border: 2px solid #374151; padding: 0.75rem 1rem;">
+            <button style="background-color: #6D28D9; font-size: 1.5rem; color: white; padding: 0.5rem 1rem; cursor: pointer;">Search</button>
+        </form>
+    </div>
+
+    <div style="
+        transition: 0.5s ease;
+        background-color: #374151;
+        transform: translateY(-1px) scale(1.1);
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 2px solid #6D28D9;
+        margin: 2rem auto; /* Center the div horizontally */
+        padding: 1rem;
+        text-align: left;
+        border-radius: 8px;
+        max-width: 800px; /* Set a maximum width based on your preference */
+        width: 100%; /* Ensure it takes the full width within the maximum width */
+        margin-top: 2rem; /* Add margin at the top to avoid overlap with the search box */
+    ">
+        {% if data %}
+            <h3>Search Output:</h3>
+            <ul>
+                {% for data in data['results'] %}
+                    <div style="
+                        transition: 0.5s ease;
+                        background-color: #6D28D9;
+                        transform: translateY(-1px) scale(1.1);
+                        color: white;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        border: 2px solid #374151;
+                        margin: 0.5rem;
+                        padding: 1rem;
+                        text-align: left;
+                        border-radius: 8px;
+                    ">
+                        <p>{{ data.name.raw }}</p>
+                        {% for round in data.rounds.raw %}
+                            <p>{{ round }}</p>
+                        {% endfor %}
+
+                    </div>
+
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No search results yet.</p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
