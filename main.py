@@ -1,5 +1,4 @@
 import json
-from elastic_enterprise_search import AppSearch
 from flask import Flask, render_template, request
 from elastic_app_search import Client
 
@@ -27,15 +26,20 @@ def home():
 def search():
     if request.method == 'POST':
         query = request.form['search']
-        round_filter = request.form.get('round')
-        
-        filters = {}
-        if round_filter:
-            filters['rounds'] = round_filter
-        
-        data = client.search(engine_name, query, {'filters': filters})
-        print(data)
-        return render_template("index.html", data=data)
+        data = client.search(engine_name, query)
+        final = [[]]
+        for d in data['results']:
+            for round in d['rounds']['raw']:
+                json_data = json.loads(round)
+                match = json_data['matches'][0]
+                team1 = match['team1']
+                team2 = match['team2']
+                date = match['date']
+                score = match['score']['ft']
+                if team2 == query or team1 == query:
+                    final.append(f'On {date} the score between {team1} and {team2} was {score}')
+
+        return render_template("index.html", data=final)
 
 
 @app.route("/index")
@@ -43,10 +47,6 @@ def index():
     f = open('data.json',)
     documents = json.load(f)
     data = client.index_documents(engine_name, documents)
-    print(data)
-    # for data in data['results']:
-    #     for round in data.rounds.raw:
-    #         print(round)
     return render_template("index.html", data=data)
 
 
