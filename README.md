@@ -49,9 +49,9 @@ These routes assume a RESTful API structure where `/api/teams` handles team-rela
 
 ### 5.1. Index
 
-![index](./1-index-settings.png)
+![index](./indices.png)
 
 ### 5.2. Index Mapping
 
 
-![mapping](./2-mappings.png)
+![mapping](./mappings.png)
