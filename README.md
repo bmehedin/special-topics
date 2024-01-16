@@ -30,7 +30,7 @@ The application will be developed using the following technologies:
     - the backend will be developed using the python's ***flask*** framework
 - Frontend (**HTML**, **CSS**):
     - **HTML/CSS**: Form the structure and styling of your application.
-- ElasticSearch for searching through the workouts at a great speed.
+- ElasticSearch for searching through the football teams at a great speed.
 
 ## 3. REST API Structure
 The structure for the REST API interface required by our application to function will be the following:
