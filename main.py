@@ -1,4 +1,5 @@
 import json
+from routes import display
 from flask import Flask, render_template, request
 from elastic_app_search import Client
 
@@ -27,19 +28,8 @@ def search():
     if request.method == 'POST':
         query = request.form['search']
         data = client.search(engine_name, query)
-        final = [[]]
-        for d in data['results']:
-            for round in d['rounds']['raw']:
-                json_data = json.loads(round)
-                match = json_data['matches'][0]
-                team1 = match['team1']
-                team2 = match['team2']
-                date = match['date']
-                score = match['score']['ft']
-                if team2 == query or team1 == query:
-                    final.append(f'On {date} the score between {team1} and {team2} was {score}')
-
-        return render_template("index.html", data=final)
+        final_data = display(data, query)
+        return render_template("index.html", data=final_data)
 
 
 @app.route("/index")
